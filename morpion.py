@@ -48,11 +48,11 @@ while True:
     if choice == 'Q':
         print('OK, on quitte la partie ...')
         break
-    if choice.isdigit():
+    if choice.isdigit() and int(choice) < 10:
         row, col = divmod(int(choice) - 1, 3)
         # print('Row | Col -> ', row, col)
         if map[row][col] == ' X ' or map[row][col] == ' O ':
-            print('Choix impossible ...')
+            print('Choix impossible ! case déjà utilisée...')
         else:
             map[row][col] = symb[0] if player == player1 else symb[1]
         draw()
