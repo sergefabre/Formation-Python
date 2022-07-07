@@ -1,3 +1,6 @@
+from curses.ascii import isdigit
+
+
 map = [
     [' 1 ',' 2 ',' 3 '],
     [' 4 ',' 5 ',' 6 '],
@@ -45,24 +48,21 @@ while True:
     if choice == 'Q':
         print('OK, on quitte la partie ...')
         break
-    row_col = divmod(int(choice) - 1, 3)
-    print('Row | Col -> ', row_col)
-    if map[row_col[0]][row_col[1]] == ' X ' or map[row_col[0]][row_col[1]] == ' O ':
-        print('Choix impossible ...')
+    if choice.isdigit():
+        row, col = divmod(int(choice) - 1, 3)
+        # print('Row | Col -> ', row, col)
+        if map[row][col] == ' X ' or map[row][col] == ' O ':
+            print('Choix impossible ...')
+        else:
+            map[row][col] = symb[0] if player == player1 else symb[1]
+        draw()
+        if isWin():
+            print(f'Bravo { player } !!, Vous avez gagné')
+            break
+        if isNulle():
+            print('Partie nulle ...')
+            break
+        player = player1 if player == player2 else player2
     else:
-        map[row_col[0]][row_col[1]] = symb[0] if player == player1 else symb[1]
-    draw()
-    if isWin():
-        print(f'Bravo { player } !!, Vous avez gagné')
-        break
-    if isNulle():
-        print('Partie nulle ...')
-        break
-    player = player1 if player == player2 else player2
+        print('Veuillez entrer un chiffre entre 1 et 9, ou "Q" pour Quitter')
 
-
-
-def test():
-    for row in range(9):
-        print(f'it { row  + 1}', (row )//3, (row )%3, divmod(row,3))
-# test()
